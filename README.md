@@ -9,7 +9,7 @@ directory `source` have:
 
 1. `node.d` - element of single-linked list without function.
 2. `queue.d`
-3. `satck.d`
+3. `stack.d`
 
 ----
 
