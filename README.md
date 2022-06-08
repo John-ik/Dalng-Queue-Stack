@@ -59,3 +59,37 @@ Public member functions:
 + `size` size_t. O(n)
 + `push` void. Parameter `T value`. Add element to top. O(1)
 + `pop` T. Return payload from top element and delete him. O(1)
+
+----
+
+## Example
+
+Code in `./example.d`
+
+This is out:  
+```
+--------------------------------
+Stack
+top: three
+size: 3
+Change
+top: four
+empty: false
+Remove it: four
+Remove it: two
+Remove it: one
+--------------------------------
+Queue
+slice: ["one", "two", "three"]
+first: one
+last: three
+size: 3
+Change
+slice: ["two", "three", "four"]
+first: two
+last: four
+size: 3
+Remove it: two
+Remove it: three
+Remove it: four
+```
