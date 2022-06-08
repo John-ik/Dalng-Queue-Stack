@@ -64,7 +64,7 @@ Public member functions:
 
 ## Example
 
-Code in `./example.d`
+Code in [`./example.d`](example.d)
 
 This is out:  
 ```
