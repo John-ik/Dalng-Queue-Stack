@@ -85,8 +85,12 @@ struct Stack (T)
         Node!T* node = new Node!T(value, _top);
         _top = node;
     }
-
-    //TODO: opBinary ("~") as push
+    ///Ditto
+    auto opOpAssign(string op : "~")(T value)
+    {
+        push(value);
+        return this;
+    }
 
 
 
@@ -121,6 +125,13 @@ struct Stack (T)
         assert(buf == "one");
         assert(stack.empty);
         assert(stack.size == 0);
+
+        stack ~= "four";
+        assert(stack.top == "four");
+        assert(stack._top.payload == "four");
+        assert(stack._top.payload == stack.top);
+        assert(!stack.empty);
+        assert(stack.size == 1);
     }
 
     unittest
