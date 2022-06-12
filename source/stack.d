@@ -23,6 +23,7 @@ struct Stack (T)
     Date: June 6, 2022
     +/
     T top () pure nothrow @safe
+    in (this._top != null, "Stack is empty")
     {
         return this._top.payload;
     }
@@ -77,8 +78,6 @@ struct Stack (T)
     Parametrs:
         T value
 
-    Returns: nothing
-
     Date: June 6, 2022
     +/
     void push (T value) pure @safe nothrow
@@ -101,7 +100,7 @@ struct Stack (T)
     T pop () pure @safe nothrow
     {
         scope(exit) _top = _top.node;
-        return _top.payload;
+        return this.top;
     }
 
 
@@ -110,6 +109,8 @@ struct Stack (T)
     unittest
     {
         Stack!string stack;
+
+        // stack.pop();
 
         stack.push("one");
         assert(stack._top.payload == "one");

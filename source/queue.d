@@ -20,10 +20,11 @@ struct Queue (T)
     Date: June 07, 2022
     +/
     T first () pure nothrow @safe
+    in (_first != null, "Queue is empty")
     {
         return _first.payload;
     }
-
+    
     /++
     Getter value last element
     
@@ -31,6 +32,7 @@ struct Queue (T)
     Date: June 07, 2022
     +/
     T last () pure nothrow @safe
+    in (_first != null, "Queue is empty")
     {
         return _last.payload;
     }
@@ -55,7 +57,7 @@ struct Queue (T)
     size_t size () pure nothrow @safe
     {
         size_t count;
-        Node!T* node = _first;
+        scope Node!T* node = _first;
         
         while (node != null)
         {
@@ -93,7 +95,7 @@ struct Queue (T)
     {
         T[] slice;
         slice.reserve(this.size);
-        Node!T* node = _first;
+        scope Node!T* node = _first;
         while (node != null)
         {
             slice ~= node.payload;
@@ -138,13 +140,16 @@ struct Queue (T)
             if (_first == _last) _last = null;
             _first = _first.node;
         }
-        return _first.payload; 
+        return this.first; 
     }
 
 
     unittest
     {
         Queue!string queue;
+
+        // queue.pop();
+
         queue.push("one");
         assert(queue.first == "one");
         assert(queue.size  == 1);
@@ -173,5 +178,21 @@ struct Queue (T)
         queue ~= "four";
         assert(queue[] == ["tree", "four"]);
         assert(queue.size == 2);
+    }
+
+    unittest
+    {
+        import std.array : array;
+        import std.range : iota;
+
+        int[] arr = array(iota(0, 1000));
+        auto queue = Queue!int(arr);
+        assert(queue.last == arr[$ - 1]);
+        foreach (key; queue[])
+        {
+            static int count;
+            assert(key == count);
+            ++count;
+        }
     }
 }
