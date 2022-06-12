@@ -182,6 +182,13 @@ struct Queue (T)
 
     unittest
     {
+        Queue!real queue;
+
+        assert(queue[] == []);
+    }
+
+    unittest
+    {
         import std.array : array;
         import std.range : iota;
 
